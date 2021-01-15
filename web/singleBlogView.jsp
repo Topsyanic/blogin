@@ -27,9 +27,10 @@
                 <div class="card card-6">
                     <div class="card-heading">
                         <c:forEach var="tempBlog" items="${BLOGLIST}">
-
+                            <c:url var="deleteLink" value="CommentServlet">
+                                <c:param name="blogId" value="${tempCom.blogId}"/>
+                            </c:url>  
                             <h2 class="title">Blog Id : ${tempBlog.blogId}</h2>
-
                         </div>
                         <div class="card-body">
                             <div class="card-footer">
@@ -77,6 +78,7 @@
                                     <c:url var="deleteLink" value="CommentServlet">
                                         <c:param name="command" value="DELETE" />
                                         <c:param name="commentId" value="${tempCom.commentId}"/>
+                                        <c:param name="blogId" value=""/>
                                         <c:param name="username" value='<%=request.getParameter("username")%>'/>
                                     </c:url>  
                                     <tr>

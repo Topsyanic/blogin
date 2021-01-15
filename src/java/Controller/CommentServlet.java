@@ -86,16 +86,19 @@ public class CommentServlet extends HttpServlet {
             String username = (String) session.getAttribute("username");
             String Comment = request.getParameter("comment");
             String BlogId = request.getParameter("blogId");
+            session.setAttribute("blogId", BlogId);
             Comment comment = new Comment(username, Comment, BlogId, Date);
             dao.addComment(comment);
             Notification noti = new Notification(username, request.getParameter("Author"), "commented", request.getParameter("PhotoUrl"), Date);
             NotificationDAO notiDao = new NotificationDAO();
             notiDao.notify(noti);
+            
             String role = (String) session.getAttribute("role");
             if (role.equalsIgnoreCase("member")) {
                 response.sendRedirect("MemberController");
             } else if (role.equalsIgnoreCase("blogger")) {
-                response.sendRedirect("BloggerController");
+//                response.sendRedirect("BloggerController");
+              BloggerController.viewSingleBlog(request,response);
             }
 
         }
@@ -105,14 +108,17 @@ public class CommentServlet extends HttpServlet {
 
         CommentDao dao = new CommentDao(Database.getConnection());
         int commentId = Integer.parseInt(request.getParameter("commentId"));
+        
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         dao.deteteComment(commentId, username);
         String role = (String) session.getAttribute("role");
+        String BlogId = request.getParameter("blogId");
             if (role.equalsIgnoreCase("member")) {
                 response.sendRedirect("MemberController");
             } else if (role.equalsIgnoreCase("blogger")) {
-                response.sendRedirect("BloggerController");
+                BloggerController.viewSingleBlog(request,response);
+//                response.sendRedirect("BloggerController");
             }
     }
 }
