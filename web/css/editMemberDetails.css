@@ -11,7 +11,7 @@ and open the template in the editor.
 
 
 body {
-    background: black;
+    background: rgba(0,0,0,0.8);
     font-family: "Montserrat", sans-serif;
     margin: 0;
 }
@@ -29,14 +29,14 @@ h3{
     left: 50%;
     margin-left: -262.5px;
     margin-top: 80px;
-    background: linear-gradient(90deg, #29323c 0%, #3b4249 100%);
+    background: #262525;
     box-shadow: 0px 0px 50px -20px #000;
 }
 
 .button{
     border: none;
     width: 70%;
-    background: #aaf0d1;
+    background: coral;
     color: #2c353e;
     text-transform: uppercase;
     margin-top: 40px;

@@ -26,6 +26,10 @@ public class FollowDAO {
         connection = Database.getConnection();
     }
 
+    public FollowDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     public boolean follow(Follow follow) {
         try {
             PreparedStatement ps = connection.prepareStatement("insert into followers(username, followers, status)" + "values(?,?,?)");
@@ -46,7 +50,7 @@ public class FollowDAO {
         List<Users> users = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement("select users.* from users left join followers on (users.username=followers.followers or users.username=followers.username) where followers.followers is NULL and roles!=?;");
-            statement.setString(1,"moderator");
+            statement.setString(1, "moderator");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 String username = rs.getString("username");
@@ -59,6 +63,56 @@ public class FollowDAO {
 
         }
         return users;
+    }
+
+    public boolean follow1(String username, String followers) {
+        boolean f = false;
+        try {
+            String q = "insert into followers(username,followers,status)values(?,?,?)";
+            PreparedStatement p = this.connection.prepareStatement(q);
+            //values set...
+            p.setString(1, username);
+            p.setString(2, followers);
+            p.setString(3, "following");
+            p.executeUpdate();
+            f = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return f;
+    }
+
+    public boolean isFollowing(String username, String followers) {
+        boolean f = false;
+        try {
+            PreparedStatement p = this.connection.prepareStatement("select * from followers where username=? and followers=?");
+            p.setString(1, username);
+            p.setString(2, followers);
+            ResultSet set = p.executeQuery();
+            if (set.next()) {
+                f = true;
+            }
+
+        } catch (Exception e) {
+        }
+        return f;
+    }
+
+    public boolean unfollow(String username, String followers) {
+        boolean f = false;
+        try {
+            PreparedStatement p = this.connection.prepareStatement("delete from followers where username=? and followers=?");
+            p.setString(1, username);
+            p.setString(2, followers);
+            p.executeUpdate();
+            f = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return f;
     }
 
     public List<Users> viewAllFollowers(String Username) throws SQLException {
@@ -93,7 +147,7 @@ public class FollowDAO {
             String Category = rs.getString("category");
             String Body = rs.getString("body");
             String date = rs.getString("date");
-            Blog postsList = new Blog(Integer.parseInt(BlogId),Category,Title,Body,imageURL,userName,date);
+            Blog postsList = new Blog(Integer.parseInt(BlogId), Category, Title, Body, imageURL, userName, date);
 
             posts.add(postsList);
         }

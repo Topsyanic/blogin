@@ -15,9 +15,14 @@
         <meta name="keywords" content="Colorlib Templates">
         <title>Viewing blog...</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+             <link type="text/css" rel="stylesheet" href="css/navBar.css">
         <link href="css/main.css" rel="stylesheet" media="all">
     </head>
     <body>
+        <div class="topnav" id="mytopnav">
+            <a href="HomeRedirect" class="active">Home</a>
+            <a href="ContactUs.jsp" id="right">Contact Us</a>
+        </div>
         <div class="page-wrapper bg-dark p-t-100 p-b-50">
             <div class="wrapper wrapper--w900">
                 <div class="card card-6">
@@ -60,8 +65,7 @@
                                     <c:param name="command" value="DELETE"/>
                                     <c:param name="blogId" value='<%=request.getParameter("blogId")%>'/>
                                 </c:url>
-                                
-                                <a   href="BloggerController">Back</a>
+                        
                                 <a   href="${updateLink}">Update</a>
                                 <a    href="${deleteLink}">Delete</a>
                             </div>

@@ -11,6 +11,7 @@ import Model.Follow;
 import Model.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,31 @@ import javax.servlet.http.HttpSession;
  */
 public class FollowServlet extends HttpServlet {
 
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, Exception {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        String userRole = (String) session.getAttribute("role");
+        String follower = request.getParameter("follower");
+
+        FollowDAO fw = new FollowDAO(Database.getConnection());
+        if (fw.isFollowing(username, follower)) {
+            fw.unfollow(username, follower);
+
+        } else {
+            fw.follow1(username, follower);
+
+        }
+        if (userRole.equalsIgnoreCase("blogger")) {
+            ListUsers(request,response);
+//            response.sendRedirect("BloggerController");
+        } else if (userRole.equalsIgnoreCase("member")) {
+            response.sendRedirect("MemberController");
+        }
+        // viewBloggerPro(request, response);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,6 +68,9 @@ public class FollowServlet extends HttpServlet {
                     break;
                 case "FOLLOW":
                     followUser(request, response);
+                    break;
+                case "CHECK":
+                    processRequest(request, response);
                     break;
                 case "VIEWPAGE":
                     viewBloggerPro(request, response);
@@ -100,12 +129,16 @@ public class FollowServlet extends HttpServlet {
         viewUserProfile(request, response);
 
     }
-
     private void viewUserProfile(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        FollowDAO dao = new FollowDAO();
+        FollowDAO dao = new FollowDAO(Database.getConnection());
+         HttpSession session = request.getSession();
+        String user = (String) session.getAttribute("username");
+        String u=request.getParameter(user);
+       
         String username = request.getParameter("username");
         List<Users> posts = dao.getAllUserDetails(username);
         request.setAttribute("USER_LIST", posts);
+        request.setAttribute("user", user);
         if (posts.isEmpty()) {
             RequestDispatcher rs = request.getRequestDispatcher("BloggerProfileViewNull.jsp");
             rs.forward(request, response);
@@ -114,6 +147,23 @@ public class FollowServlet extends HttpServlet {
             rs.forward(request, response);
         }
     }
+
+//    private void viewUserProfile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        FollowDAO dao = new FollowDAO();
+//        HttpSession session = request.getSession();
+//        String username = (String) session.getAttribute("username");
+//        String user = request.getParameter("username");
+//        List<Users> posts = dao.getAllUserDetails(user);
+//        request.setAttribute("USER_LIST", posts);
+//        request.setAttribute("user",username);
+//        if (posts.isEmpty()) {
+//            RequestDispatcher rs = request.getRequestDispatcher("BloggerProfileViewNull.jsp");
+//            rs.forward(request, response);
+//        } else {
+//            RequestDispatcher rs = request.getRequestDispatcher("BloggerProfileView.jsp");
+//            rs.forward(request, response);
+//        }
+//    }
 
     @Override
     public String getServletInfo() {

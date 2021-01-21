@@ -98,8 +98,6 @@ public class DAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String imageUrl = rs.getString("imageUrl");
-                Path path = Paths.get("D:\\APIIT\\NetBeansProjects\\ESA2\\web\\" + imageUrl);
-                Files.delete(path);
             }
 
             ps = connection.prepareStatement("delete from blogs where blogId=?");
@@ -163,7 +161,11 @@ public class DAO {
             String author = rs.getString("username");
             String date = rs.getString("date");
             Blog myBlog = new Blog( blogId, category, title, body,  imageUrl, author,date);
-            blogs.add(myBlog);
+            if (author.equalsIgnoreCase(username))
+            {
+                blogs.add(myBlog);
+            }
+            
         }
         return blogs;
            

@@ -71,7 +71,7 @@ public class UserController extends HttpServlet {
 
         try {
             UserDAO dao = new UserDAO();
-            
+
             String username = "cb" + request.getParameter("username");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
@@ -80,53 +80,53 @@ public class UserController extends HttpServlet {
             String password = request.getParameter("password");
             Part filePart = request.getPart("photo");
             String role = "member";
-            
+
             if (dao.checkUserExists(username)) {
-                
+
                 RequestDispatcher rs = request.getRequestDispatcher("registerError1.html");
                 rs.forward(request, response);
             } else {
                 String fileName = null;
                 String photo = "";
-                String path = "D:\\lecture slides\\2 year\\esa 2\\ApiitBlogging-main\\web\\ProfileImages";
+                String path = "D:\\APIIT\\NetBeansProjects\\ApiitBlogging-main\\web\\ProfileImages";
                 File file = new File(path);
                 file.mkdir();
                 //String fileName = getFileName(filePart);
-                if (filePart == null)
-                {
+                if (filePart == null) {
                     fileName = null;
-                }
-                else
-                {
+                } else {
                     fileName = username + ".jpg";
                 }
-                
+
                 OutputStream out = null;
                 InputStream filecontent = null;
-                
+
                 PrintWriter writer = response.getWriter();
                 try {
-                    
+
                     out = new FileOutputStream(new File(path + File.separator + fileName));
-                    
+
                     filecontent = filePart.getInputStream();
-                    
+
                     int read = 0;
                     final byte[] bytes = new byte[1024];
-                    
+
                     while ((read = filecontent.read(bytes)) != -1) {
                         out.write(bytes, 0, read);
                         //photo = path + "\\" + fileName;
                         photo = "ProfileImages\\" + fileName;
                     }
-                    
+
                 } catch (Exception e) {
-                    
+
                 }
-                
+
                 Users user = new Users(username, firstName, lastName, dob, email, password, photo, role);
                 dao.addUser(user);
-                response.sendRedirect("success.html");
+                writer.print("<script type=\"text/javascript\">");
+                writer.print("alert('Account Successfully Created');");
+                writer.print("</script>");
+                request.getRequestDispatcher("login.html").include(request, response);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);

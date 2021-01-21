@@ -44,7 +44,14 @@ public class LikeServlet extends HttpServlet {
                 out.print("true");
 
             }
-           response.sendRedirect("BloggerController");
+           String role = (String) session.getAttribute("role");
+           if (role.equalsIgnoreCase("member")) {
+                 BloggerController.viewSingleBlog(request,response);
+            } else if (role.equalsIgnoreCase("blogger")) {
+                BloggerController.viewSingleBlog(request,response);
+//                response.sendRedirect("BloggerController");
+            }
+//           response.sendRedirect("BloggerController");
 
         }
     }

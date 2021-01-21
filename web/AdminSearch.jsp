@@ -93,6 +93,7 @@
                             <c:param name="photoURL" value="${Users.photoUrl}"/>
 
                         </c:url>
+                        
                         <div class="profileView">
 
                             <div class="profile__picture"> <img src=${Users.photoUrl}></div>
@@ -123,9 +124,14 @@
                     </c:forEach>
 
                 </div>
-                <div >
+                <div style="">
                     <h5 style="color: white;margin-left: 20px;">Blog posts</h5>
                     <c:forEach var="post" items="${search_posts}">
+                        <c:url var="readmore" value="BloggerController">
+                            <c:param name="command" value="ONEBLOG"/>
+                            <c:param name="blogId" value="${post.blogId}"/>
+                            <c:param name="imageUrl" value="${post.imageURL}"/>
+                        </c:url>
                         <article style="margin-left: 140px;">
                             <div class="imageurl">
                                 <img src="${post.imageURL}" height="170">
@@ -133,7 +139,7 @@
                             <div class="description">
                                 <h3 style="margin-top: 5px">${post.title}</h3>
                                 <span>${post.date} | ${post.category}</span>
-                                <p>${post.body}</p><a style='color: gray; font-size: small' href="${Action2}">Read more..</a>
+                                <p>${post.body}</p><a style='color: gray; font-size: small' href="${readmore}}">Read more..</a>
                             </div>
                         </article>
                     </c:forEach>

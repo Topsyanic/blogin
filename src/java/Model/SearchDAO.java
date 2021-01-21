@@ -26,7 +26,7 @@ public class SearchDAO {
     public List<SearchBlogger> SearchResult(String searchKey) throws SQLException {
         List<SearchBlogger> userInfo = new ArrayList<SearchBlogger>();
          
-        PreparedStatement preparedStatement = connection.prepareStatement("select username,firstName,lastName,photoUrl from users where roles =? and firstName=? or lastname=? or username=?");
+        PreparedStatement preparedStatement = connection.prepareStatement("select username,firstName,lastName,photoUrl from users where roles like ? and firstName like ? or lastname  like ?  or username like ?");
         //preparedStateement to execute the SQL query
         
         preparedStatement.setString(1, "blogger");

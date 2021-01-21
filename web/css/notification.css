@@ -18,7 +18,7 @@ and open the template in the editor.
 }
 
 body{
-	background: #ececec;
+	background: rgba(0,0,0,0.8);
 }
 
 .wrapper{
@@ -37,7 +37,7 @@ body{
 	font-size: 32px;
 	margin: 0 auto;
 	text-align: center;
-	color: #605dff;
+	color: coral;
 }
 
 .notification_wrap .notification_icon .fa-bell{
@@ -51,9 +51,10 @@ body{
 	border-radius: 5px;
 	box-shadow: 2px 2px 3px rgba(0,0,0,0.125);
 	margin: 15px auto 0;
+        margin-left: 70px;
 	padding: 15px;
 	position: relative;
-	display: none;
+	display: block;
 }
 
 .notification_wrap .dropdown .notify_item{
@@ -76,7 +77,7 @@ body{
 }
 
 .notification_wrap .dropdown .notify_item .notify_info p span{
-	color: #605dff;
+	color: coral;
 	margin-left: 5px;
 }
 
@@ -93,6 +94,7 @@ body{
 	transform: translateX(-50%);
 	border: 15px solid;
 	border-color: transparent transparent #fff transparent;
+        display: block;
 }
 
 .notification_wrap .dropdown.active{
@@ -101,7 +103,7 @@ body{
 
 .clearBtn{
     
-  background-color: #605dff; 
+  background-color: coral; 
   border: none;
   color: white;
   padding: 4px 8px;

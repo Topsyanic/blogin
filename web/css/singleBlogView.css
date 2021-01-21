@@ -496,7 +496,15 @@ textarea {
 .input-group {
     position: relative;
     margin: 0;
+    
+   
 }
+.img-container{
+    position: relative;
+    margin: 0;
+  text-align: center;
+}
+
 
 .input--style-6,
 .textarea--style-6 {

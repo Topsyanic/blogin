@@ -12,41 +12,57 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link type="text/css" rel="stylesheet" href="css/viewBlogs.css">
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="css/memberHomePage.css">
+        <link type="text/css" rel="stylesheet" href="css/navBar.css">
         <link rel="icon" href="Images/Capture.PNG" type="image/icon type">
         <link type="text/css" rel="stylesheet" href="css/searchBox.css">
+        <link type="text/css" rel="stylesheet" href="css/profileView.css">
         <!-- Font Awesome -->
 
 
         <title>View my blogs</title>
     </head>
+
     <body>
+        <img src="images/home.png" style="margin-left: 650px;" width="150px">
+        <div class="topnav" id="mytopnav">
+            <a href="BloggerController" class="active">Home</a>
+            <a href="createBlog.jsp" id=post>Post Blog</a>
+            <div class="search-container">
+                <form action="BloggerController" method="GET">
+                    <input type="hidden" name="command" value="SEARCH">
+                    <input type="text" placeholder="Enter keyword..." name="keyword">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <c:url var="NOTIFY" value="NotificationServlet">
+                <c:param name="command" value="NOTIFICATION" />
+
+            </c:url> 
+            <c:url var="follow" value="FollowServlet">
+                <c:param name="command" value="USERS" />
+                <c:param name="username" value='<%=request.getParameter("username")%>'/>
+            </c:url> 
+            <c:url var="settings" value="MemberController">
+                <c:param name="command" value="SETTINGS" />
+            </c:url> 
+            <a href="ContactUs.jsp" id="right">Contact Us</a>
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+        </div>
 
         <div class="page-wrapper bg-dark p-t-100 p-b-50" >
-
-            <a href="BloggerController" style=text-decoration:none;color:white;padding-left:20px>Go Back</a>
             <br>
             <br>
-            <br>
-            <form action="BloggerController" style="margin:auto;max-width:1000px;">
-                <input type="hidden" class="" name="command" value="SEARCH" />
-                <input type="text" placeholder="Please enter keyword.." name="keyword">
+            <div class="profile-body tab">
+                <h3 id="feed">My Blogs</h3>
 
-
-            </form>
-         
-
-            <h2 class="heading">My blogs</h2 >
-            <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
-                <tr>
-                    <th>Date</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>View</th>
-                </tr>
                 <c:forEach var="tempBlog" items="${BLOGLIST}">
+                    <c:url var="Action" value="BloggerController">
+                        <c:param name="command" value="ONEBLOG" />
+                        <c:param name="blogId" value="${post.blogId}"/> 
+                    </c:url>
                     <c:url var="deleteLink" value="BloggerController">
                         <c:param name="command" value="DELETE"/>
                         <c:param name="blogId" value="${tempBlog.blogId}"/>
@@ -66,14 +82,23 @@
                         <c:param name="title" value="${tempBlog.title}"/>
                         <c:param name="body" value="${tempBlog.body}"/>
                     </c:url>
-                    <tr>
-                        <td>${tempBlog.date}</td>
-                        <td>${tempBlog.title}</td>
-                        <td>${tempBlog.category}</td>
-                        <td><a  class="changeLink" href="${viewLink}">View</a>
-                    </tr>
+
+                    <article style='padding-bottom:2%;'>
+                        <div class="imageurl">
+                            <img src=${tempBlog.imageURL} alt="imageurl" height="160" style="margin-top:4px">
+                        </div>
+
+                        <div class="description">
+                            <h3>${tempBlog.title}</h3>
+                            <span>${tempBlog.date} |  ${tempBlog.category}</span>
+                            <p>${tempBlog.body} </p><a style='color: gray; font-size: small;' href = "${viewLink}"> Read more.</a>
+                        </div>
+                    </article>
                 </c:forEach>
-            </table>
+
+
+
+            </div>
             <br>
             <br>
             <h2>  Statistics</h2>

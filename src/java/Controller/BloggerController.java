@@ -136,6 +136,11 @@ public class BloggerController extends HttpServlet {
             if (dao.createBlog(blog)) {
                 System.out.println("error");;
             } else {
+                PrintWriter writer = response.getWriter();
+                writer.print("<script type=\"text/javascript\">");
+                writer.print("alert('Blog successfully posted');");
+                writer.print("location='BloggerController';");
+                writer.print("</script>");
                 viewHomePage(request, response);
             }
         } catch (SQLException ex) {
@@ -206,7 +211,7 @@ public class BloggerController extends HttpServlet {
     public void searchBlog(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
-         String keyword = "%" + request.getParameter("keyword") + "%";
+        String keyword = "%" + request.getParameter("keyword") + "%";
         DAO dao = new DAO();
         List<Blog> blogs = dao.searchBlog(username, keyword);
         request.setAttribute("BLOGLIST", blogs);
@@ -226,25 +231,24 @@ public class BloggerController extends HttpServlet {
             throws SQLException, ServletException, IOException {
         String BlogId = request.getParameter("blogId");
         HttpSession session = request.getSession();
-        if(BlogId.equals(""))
-        {
-            BlogId=(String) session.getAttribute("blogId");
+
+        if (BlogId.equals("")) {
+            BlogId = (String) session.getAttribute("blogId");
         }
-        
+
         String username = (String) session.getAttribute("username");
-        //String username = "test";
-       //String BlogId = request.getParameter("blogId");
         DAO doa = new DAO();
 
         List<Blog> blogs = doa.singleBlog(BlogId);
         request.setAttribute("BLOGLIST", blogs);
+        request.setAttribute("user", username);
         viewAllComments(request, response);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/singleBlogView.jsp");
         dispatcher.forward(request, response);
     }
 
-    private static  void viewAllComments(HttpServletRequest request, HttpServletResponse response)
+    private static void viewAllComments(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         PrintWriter out = response.getWriter();
         response.setContentType("Text/html");
@@ -254,9 +258,8 @@ public class BloggerController extends HttpServlet {
         // int BlogId = Integer.parseInt(request.getParameter("blogId"));
         HttpSession session = request.getSession();
         String BlogId = request.getParameter("blogId");
-         if(BlogId.equals(""))
-        {
-            BlogId=(String) session.getAttribute("blogId");
+        if (BlogId.equals("")) {
+            BlogId = (String) session.getAttribute("blogId");
         }
 ////
         List<Comment> comments = dao.getAllComments(BlogId);
@@ -284,7 +287,7 @@ public class BloggerController extends HttpServlet {
 
     }
 
-    private void viewBloggerPro(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    static void viewBloggerPro(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         DAO dao = new DAO();
 
         String username = request.getParameter("username");

@@ -95,7 +95,7 @@ public class CommentServlet extends HttpServlet {
             
             String role = (String) session.getAttribute("role");
             if (role.equalsIgnoreCase("member")) {
-                response.sendRedirect("MemberController");
+                BloggerController.viewSingleBlog(request,response);
             } else if (role.equalsIgnoreCase("blogger")) {
 //                response.sendRedirect("BloggerController");
               BloggerController.viewSingleBlog(request,response);
@@ -114,8 +114,9 @@ public class CommentServlet extends HttpServlet {
         dao.deteteComment(commentId, username);
         String role = (String) session.getAttribute("role");
         String BlogId = request.getParameter("blogId");
+        session.setAttribute("blogId", BlogId);
             if (role.equalsIgnoreCase("member")) {
-                response.sendRedirect("MemberController");
+                 BloggerController.viewSingleBlog(request,response);
             } else if (role.equalsIgnoreCase("blogger")) {
                 BloggerController.viewSingleBlog(request,response);
 //                response.sendRedirect("BloggerController");

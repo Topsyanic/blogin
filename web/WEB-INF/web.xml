@@ -52,6 +52,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>Controller.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeRedirect</servlet-name>
+        <servlet-class>Controller.HomeRedirect</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>BloggerController</servlet-name>
         <url-pattern>/BloggerController</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeRedirect</servlet-name>
+        <url-pattern>/HomeRedirect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -25,35 +25,12 @@
         <!--<img src="Images/capture3.png" width="200px">-->
         <div class="topnav" id="mytopnav">
             <a href="#" class="active">Home</a>
-            <a href="#">Trending</a>
-            <div class="dropdown">
-                <button class="dropbtn">Categories
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">Travel</a>
-                    <a href="#">Food</a>
-                    <a href="#">Health and Fitness</a>
-                    <a href="#">Technology</a>
-                    <a href="#">Fashion</a>
-                    <a href="#">Music</a>
-                    <a href="#">Sports</a>
-                    <a href="#">DIY</a>
-                </div>
-            </div>
+            <%--<a href="#">Trending</a>
             <a href="#">Discover </a> 
-            <a>&emsp; &emsp; &emsp; </a>
-
-            <div class="search-container">
-                
-                    <input type="text" placeholder="Search.." >
-                    <button onclick ="window.location.href = 'index.html';"><i class="fa fa-search"></i></button>
-                
-            </div>
+            <a>&emsp; &emsp; &emsp; </a>--%>
 
             <a onclick ="window.location.href = 'index.html';" id="signup">Sign Up</a>
             <a onclick ="window.location.href = 'login.html';" id="login">Login</a>
-            <a onclick ="window.location.href = 'ContactUs.jsp';" id="right">About Us</a>
             <a onclick ="window.location.href = 'ContactUs.jsp';" id="right">Contact Us</a>
 
 
@@ -63,6 +40,8 @@
         <br>
         <br>
         <br>
+        <c:url var="readmore" value="index.html">
+        </c:url>
 
         <h3>Trending Today</h3>
         <div class="trending">
@@ -75,100 +54,100 @@
                 </div>
             </c:forEach>
 
-            </div>
+        </div>
 
-            <h3 id="feed">Popular Categories</h3>
-            <h5>Food</h5>
-            <!--<div class="following">
-                <h4>Following</h4>
-            </div>-->
-            <div class="trending">
-                <c:forEach var="post" items="${FOOD}">
+        <h3 id="feed">Popular Categories</h3>
+        <h5>Food</h5>
+        <!--<div class="following">
+            <h4>Following</h4>
+        </div>-->
+        <div class="trending">
+            <c:forEach var="post" items="${FOOD}">
                 <div class="trendingCards">
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
                     <img src="${post.imageURL}" width="300">
                 </div>
-                </c:forEach>
+            </c:forEach>
 
-            </div>
+        </div>
 
-            <h5>Health and Fitness </h5>
+        <h5>Health and Fitness </h5>
 
-            <div class="trending">
-                <c:forEach var="post" items="${FITNESS}">
+        <div class="trending">
+            <c:forEach var="post" items="${FITNESS}">
                 <div class="trendingCards">
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
                     <img src="${post.imageURL}" width="300">
                 </div>
-                </c:forEach>
+            </c:forEach>
 
 
-            </div>
+        </div>
 
-            <h5>Travel </h5>
+        <h5>Travel </h5>
 
-            <div class="trending">
-                <c:forEach var="post" items="${TRAVEL}">
+        <div class="trending">
+            <c:forEach var="post" items="${TRAVEL}">
                 <div class="trendingCards">
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
                     <img src="${post.imageURL}" width="300">
                 </div>
-                </c:forEach>
+            </c:forEach>
 
-            </div>
+        </div>
 
-            <h5>Music </h5>
+        <h5>Music </h5>
 
-            <div class="trending">
-                <c:forEach var="post" items="${MUSIC}">
+        <div class="trending">
+            <c:forEach var="post" items="${MUSIC}">
                 <div class="trendingCards">
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
                     <img src="${post.imageURL}" width="300">
                 </div>
-                </c:forEach>
+            </c:forEach>
 
-            </div>
+        </div>
 
-            <script type="text/javascript">
-                function myFunction() {
-                    var x = document.getElementById("myTopnav");
-                    if (x.className === "topnav") {
-                        x.className += " responsive";
-                    } else {
-                        x.className = "topnav";
-                    }
+        <script type="text/javascript">
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
                 }
-                window.onscroll = function () {
-                    myFunction()
-                };
+            }
+            window.onscroll = function () {
+                myFunction()
+            };
 
-                var navbar = document.getElementById("mytopnav");
-                var sticky = navbar.offsetTop;
+            var navbar = document.getElementById("mytopnav");
+            var sticky = navbar.offsetTop;
 
-                function myFunction() {
-                    if (window.pageYOffset >= sticky) {
-                        navbar.classList.add("sticky")
-                    } else {
-                        navbar.classList.remove("sticky");
-                    }
+            function myFunction() {
+                if (window.pageYOffset >= sticky) {
+                    navbar.classList.add("sticky")
+                } else {
+                    navbar.classList.remove("sticky");
                 }
-            </script>
+            }
+        </script>
 
 
 
-        </body> 
-        <!--Footer-->
-        <%--<%@include file="footer.html"%>--%>
+    </body> 
+    <!--Footer-->
+    <%--<%@include file="footer.html"%>--%>
 
 
 
 
-    </html>
+</html>

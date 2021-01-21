@@ -4,6 +4,8 @@
     Author     : Lahiru De silva 
 --%>
 
+<%@page import="Model.Database"%>
+<%@page import="Model.FollowDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -24,7 +26,7 @@
         <br>
         <%--navbar--%>
         <div class="topnav" id="mytopnav">
-            <a href="#" class="active">Home</a>
+            <a href="HomeRedirect" class="active">Home</a>
             <a href="#">Trending</a>
             <div class="dropdown">
                 <button class="dropbtn">Categories
@@ -101,7 +103,22 @@
                             <p class="user-mail"><i class="fa fa-envelope"></i>${users.username}@students.apiit.lk</p>
 
                             <div class="profile-btn">
-                                <a href="${followLink}"> <button class="followbtn" id="follow-button" ><i class="fa fa-rss" aria-hidden="true" ></i> Follow</button></a>
+                                <% FollowDAO fw = new FollowDAO(Database.getConnection());%>
+                                <%
+                                    String follower = request.getParameter("username");
+                                    String username = (String) request.getAttribute("user");
+                                %>
+                                <c:url var="check" value="FollowServlet">
+                                    <c:param name="command" value="CHECK" />  
+                                    <c:param name="follower" value='<%=request.getParameter("username")%>'/>
+                                    <c:param name="username" value='<%=request.getParameter("username")%>'/>
+                                </c:url>
+                                <% if (fw.isFollowing(username, follower)) {%>
+                                <a href="${check}" style="color:black ;text-decoration: none; text-align: center; ">  Unfollow</a>                                              
+                                <%} else {%>
+                                <a href="${check}" style="color:orange; text-decoration: none; text-align: center;">  Follow</a>
+                                <%}%>
+                                <%-- <a href="${followLink}"> <button class="followbtn" id="follow-button" ><i class="fa fa-rss" aria-hidden="true" ></i> Follow</button></a> --%>
                             </div>
 
                             <div class="links">

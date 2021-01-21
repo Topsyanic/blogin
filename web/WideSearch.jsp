@@ -26,24 +26,6 @@
         <!--<img src="Images/capture3.png" width="200px">-->
         <div class="topnav" id="mytopnav">
             <a href="${home}" class="active">Home</a>
-            <a href="#">Trending</a>
-            <div class="dropdown">
-                <button class="dropbtn">Categories
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">Travel</a>
-                    <a href="#">Food</a>
-                    <a href="#">Health and Fitness</a>
-                    <a href="#">Technology</a>
-                    <a href="#">Fashion</a>
-                    <a href="#">Music</a>
-                    <a href="#">Sports</a>
-                    <a href="#">DIY</a>
-                </div>
-            </div>
-            <a href="#">Discover</a>
-            <a onclick ="window.location.href = 'changeToBlogger.jsp';" id=post>Post Blog</a>
             <div class="search-container">
                 <form action="SearchController" method="GET">
                     <input type="hidden" name="command" value="SEARCH">
@@ -51,24 +33,28 @@
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
-            <div class="dropdown2">
-                <button class="dropbtn">Profile
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">My Profile</a>
-                    <a href="#">Notifications</a>
-                    <a href="#">Inquiries</a>
-                    <a href="#">Account Settings</a>
-                    <a id="logout" href="LogoutController">Log Out</a>
-                </div>
-            </div>
-            <a href="#" id="right">About us</a>
-            <a href="#" id="right">Contact Us</a>
+            
+
+            <a href="ContactUs.jsp" id="right">Contact Us</a>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
         <br>
         <h4 style="color: coral;">Search result for : <%=session.getAttribute("Keyword")%></h4>
+        <div >
+            <h5 style="color: white;margin-left: 20px;">Blog posts</h5>
+            <c:forEach var="post" items="${search_posts}">
+                <article>
+                    <div class="imageurl">
+                        <img src="${post.imageURL}" height="170">
+                    </div>
+                    <div class="description">
+                        <h3 style="margin-top: 5px">${post.title}</h3>
+                        <span>${post.date} | ${post.category}</span>
+                        <p>${post.body}</p><a style='color: gray; font-size: small' href="${Action2}">Read more..</a>
+                    </div>
+                </article>
+            </c:forEach>
+        </div>
         <h5 style="color: white;margin-left: 20px;">Users</h5>
 
         <%--profile view--%>
@@ -112,21 +98,6 @@
                 </div>
             </c:forEach>
 
-        </div>
-        <div >
-            <h5 style="color: white;margin-left: 20px;">Blog posts</h5>
-            <c:forEach var="post" items="${search_posts}">
-                <article>
-                    <div class="imageurl">
-                        <img src="${post.imageURL}" height="170">
-                    </div>
-                    <div class="description">
-                        <h3 style="margin-top: 5px">${post.title}</h3>
-                        <span>${post.date} | ${post.category}</span>
-                        <p>${post.body}</p><a style='color: gray; font-size: small' href="${Action2}">Read more..</a>
-                    </div>
-                </article>
-            </c:forEach>
         </div>
 
 

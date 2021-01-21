@@ -36,6 +36,13 @@ h1{
 .topic{
     margin-left: 100px;
 }
+img{
+width: 135px;
+border-radius: 50%;
+overflow: hidden;
+margin-left: 160px;
+margin-top: -50px;
+}
 /*.h3{*/
 /*    letter-spacing: 1px;
     color: white;

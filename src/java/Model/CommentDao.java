@@ -52,7 +52,7 @@ public class CommentDao {
                 String Date = rs.getString("date");
                 int CommentId = rs.getInt("commentId");
 
-                Comment comme = new Comment(Username, Comment, Date, CommentId);
+                Comment comme = new Comment(Username, Comment, Date, CommentId,BlogId);
                 comments.add(comme);
             }
         } catch (Exception e) {

@@ -12,17 +12,21 @@
         <meta charset="UTF-8">
         <title>Notification Dropdown</title>
         <link rel="stylesheet" href="css/notification.css">
+        <link type="text/css" rel="stylesheet" href="css/navBar.css">
+        <link rel="icon" href="images/Capture.PNG" type="image/icon type">
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".notification_icon .fa-bell").click(function () {
-                    $(".dropdown").toggleClass("active");
-                })
-            });
-        </script>
+        
     </head>
     <body>
+
+        <br>
+        <%--navbar--%>
+        <div class="topnav" id="mytopnav">
+            <a href="HomeRedirect" class="active">Home</a>
+            <a href="ContactUs.jsp" id="right">Contact Us</a>
+        </div>
+        <%--nav--%>
 
         <div class="wrapper">
             <div class="notification_wrap">

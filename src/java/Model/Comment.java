@@ -31,13 +31,16 @@ public class Comment {
         this.date = date;
     }
 
-    public Comment( String username, String comment,  String date,int commentId) {
+    public Comment( String username, String comment,  String date,int commentId,String blogId) {
         this.username = username;
         this.comment = comment;
        
         this.date = date;
         this.commentId = commentId;
+        this.blogId=blogId;
     }
+
+  
 
   
 

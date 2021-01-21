@@ -97,9 +97,8 @@ public class MemberController extends HttpServlet {
 
     private void changePersonalInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDAO dao = new UserDAO();
-//        HttpSession session = request.getSession();
-//        String username = (String) session.getAttribute("uname");
-        String username = "cb007892";
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
         Users user = dao.getPersonalDetails(username);
         request.setAttribute("user", user);
         RequestDispatcher dispatcher = request.getRequestDispatcher("editMemberDetails.jsp");
@@ -110,9 +109,10 @@ public class MemberController extends HttpServlet {
         try {
             UserDAO dao = new UserDAO();
             Part filePart = request.getPart("photo");
-            String username = "cb007892";
+            HttpSession session = request.getSession();
+            String username = (String) session.getAttribute("username");
             String photo = "";
-            String path = "D:\\2nd SEM\\ESA\\TestSignUp\\web\\ProfileImages";
+            String path = "D:\\APIIT\\NetBeansProjects\\ApiitBlogging-main\\web\\ProfileImages";
             File file = new File(path);
             file.mkdir();
             //String fileName = getFileName(filePart);
@@ -142,8 +142,10 @@ public class MemberController extends HttpServlet {
 
             }
             dao.updateProfilePic(username, photo);
-            RequestDispatcher rs = request.getRequestDispatcher("sucessDob.html");
-            rs.forward(request, response);
+            writer.print("<script type=\"text/javascript\">");
+            writer.print("alert('Profile Picture successfully changed.');");
+            writer.print("location='MemberController';");
+            writer.print("</script>");
         } catch (SQLException ex) {
             Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -152,16 +154,21 @@ public class MemberController extends HttpServlet {
 
     private void changeDOB(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDAO dao = new UserDAO();
-        String username = "cb007892"; //Should be taken from sessions
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
         String date = request.getParameter("dob");
         dao.updateDOB(username, date);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("sucessDob.html");
-        dispatcher.forward(request, response);
+        PrintWriter writer = response.getWriter();
+        writer.print("<script type=\"text/javascript\">");
+        writer.print("alert('Date of birth successfully changed.');");
+        writer.print("location='MemberController';");
+        writer.print("</script>");
     }
 
     private void changePassword(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDAO dao = new UserDAO();
-        String username = "cb007892"; //should be taken from sessions
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
         String passwordChk = request.getParameter("passwordChk");
         String password = request.getParameter("password");
         if (dao.checkPasswordCorrect(username, passwordChk)) {
@@ -171,30 +178,34 @@ public class MemberController extends HttpServlet {
             Mail mail = Mail.getMailInstance();
 
             String reply = "Your password was successfully updated,\n If this activity is not done by you,\n Immediately contact Blogin to safeguard your account";
-            String email = username + "@students.apiit.lk";
+            String email = "cb" + username + "@students.apiit.lk";
             mail.sendMail("Username: " + username, "Dear user,\n\n" + reply + ".\n\nBest Regards, \nTeam Blogin", email);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("successPassword.html");
-            dispatcher.forward(request, response);
+            PrintWriter writer = response.getWriter();
+            writer.print("<script type=\"text/javascript\">");
+            writer.print("alert('Password successfully changed.');");
+            writer.print("location='MemberController';");
+            writer.print("</script>");
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("passwordError.html");
-            dispatcher.forward(request, response);
+            PrintWriter writer = response.getWriter();
+            writer.print("<script type=\"text/javascript\">");
+            writer.print("alert('Current password was wrong.');");
+            writer.print("location='MemberController';");
+            writer.print("</script>");
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("passwordError.html");
+//            dispatcher.forward(request, response);
         }
     }
 
     private void viewMemberHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        
+
         MemberDAO dao = new MemberDAO();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
-        
-       
+
         List<Blog> tendingPosts = dao.getAllTrendingPosts();
         List<Blog> followingPosts = dao.getAllFollowerPosts(username);
         request.setAttribute("TRENDING", tendingPosts);
         request.setAttribute("FOLLOWPOSTS", followingPosts);
-        
-        
-        
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("memberHomePage.jsp");
         dispatcher.forward(request, response);
@@ -202,7 +213,7 @@ public class MemberController extends HttpServlet {
     }
 
     private void searchResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        
+
         DAO dao = new DAO();
         HttpSession theSession = request.getSession();
 
@@ -212,17 +223,16 @@ public class MemberController extends HttpServlet {
         List<SearchBlogger> userInfo = dao.SearchResult(searchKey);
         List<Blog> searchBlogs = dao.getAllBlogPosts(searchKey);
 
-         if (userInfo.isEmpty() && searchBlogs.isEmpty()) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("searchBloggersNull.jsp");
-                dispatcher.forward(request, response);
+        if (userInfo.isEmpty() && searchBlogs.isEmpty()) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("searchBloggersNull.jsp");
+            dispatcher.forward(request, response);
 
-            } else {
-                request.setAttribute("search_posts", searchBlogs);
-                request.setAttribute("users_info", userInfo);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WideSearch.jsp");
-                dispatcher.forward(request, response);
-            }
-
+        } else {
+            request.setAttribute("search_posts", searchBlogs);
+            request.setAttribute("users_info", userInfo);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WideSearch.jsp");
+            dispatcher.forward(request, response);
+        }
 
     }
 
@@ -230,7 +240,5 @@ public class MemberController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
 
 }
