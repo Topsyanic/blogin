@@ -91,7 +91,7 @@
                         <div class="description">
                             <h3>${tempBlog.title}</h3>
                             <span>${tempBlog.date} |  ${tempBlog.category}</span>
-                            <p>${tempBlog.body} </p><a style='color: gray; font-size: small;' href = "${viewLink}"> Read more.</a>
+                            <p style='width: 250px;'>${tempBlog.body} </p><a style='color: gray; font-size: small;' href = "${viewLink}"> Read more.</a>
                         </div>
                     </article>
                 </c:forEach>

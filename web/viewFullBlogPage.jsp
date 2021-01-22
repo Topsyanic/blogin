@@ -19,9 +19,8 @@
         <link href="css/main.css" rel="stylesheet" media="all">
     </head>
     <body>
-        <div class="topnav" id="mytopnav">
-            <a href="HomeRedirect" class="active">Home</a>
-            <a href="ContactUs.jsp" id="right">Contact Us</a>
+        <div class="topnav" id="mytopnav" style='background-color: rgba(0,0,0,0.8)'>
+            
         </div>
         <div class="page-wrapper bg-dark p-t-100 p-b-50">
             <div class="wrapper wrapper--w900">

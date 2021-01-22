@@ -50,7 +50,7 @@
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
-                    <img src="${post.imageURL}"width="300">
+                    <img src="${post.imageURL}"width="300" height="170">
                 </div>
             </c:forEach>
 
@@ -67,36 +67,25 @@
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
-                    <img src="${post.imageURL}" width="300">
+                    <img src="${post.imageURL}" width="300" height="170">
                 </div>
             </c:forEach>
 
         </div>
 
-        <h5>Health and Fitness </h5>
-
-        <div class="trending">
-            <c:forEach var="post" items="${FITNESS}">
-                <div class="trendingCards">
-                    <h4>${post.title}</h4>
-                    <p class="body">${post.body}</p>
-                    <a href="${readmore}" id="readmore">Read More...</a>
-                    <img src="${post.imageURL}" width="300">
-                </div>
-            </c:forEach>
-
-
-        </div>
+        
 
         <h5>Travel </h5>
 
-        <div class="trending">
+        <div class="trending" style='padding-bottom: 10px;'>
             <c:forEach var="post" items="${TRAVEL}">
                 <div class="trendingCards">
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
-                    <img src="${post.imageURL}" width="300">
+                    <img src="${post.imageURL}" width="300" height="170">
+                    <br>
+                    <br>
                 </div>
             </c:forEach>
 
@@ -110,9 +99,23 @@
                     <h4>${post.title}</h4>
                     <p class="body">${post.body}</p>
                     <a href="${readmore}" id="readmore">Read More...</a>
-                    <img src="${post.imageURL}" width="300">
+                    <img src="${post.imageURL}" width="300" height="170">
                 </div>
             </c:forEach>
+
+        </div>
+        <h5>Health and Fitness </h5>
+
+        <div class="trending">
+            <c:forEach var="post" items="${FITNESS}">
+                <div class="trendingCards">
+                    <h4>${post.title}</h4>
+                    <p class="body">${post.body}</p>
+                    <a href="${readmore}" id="readmore">Read More...</a>
+                    <img src="${post.imageURL}" width="300" height="170">
+                </div>
+            </c:forEach>
+
 
         </div>
 

@@ -138,10 +138,9 @@ public class BloggerController extends HttpServlet {
             } else {
                 PrintWriter writer = response.getWriter();
                 writer.print("<script type=\"text/javascript\">");
-                writer.print("alert('Blog successfully posted');");
+                writer.print("alert('Blog will be posted after verification');");
                 writer.print("location='BloggerController';");
                 writer.print("</script>");
-                viewHomePage(request, response);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BloggerController.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,6 +312,7 @@ public class BloggerController extends HttpServlet {
         HttpSession session = request.getSession();
         String role = "blogger";
         String username = (String) session.getAttribute("username");
+        session.setAttribute("role", role);
 
         Boolean isUpdated = dao.upgradeAccount(username, role);
 
