@@ -71,7 +71,7 @@ public class UserController extends HttpServlet {
 
         try {
             UserDAO dao = new UserDAO();
-
+            PrintWriter writer = response.getWriter();
             String username = "cb" + request.getParameter("username");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
@@ -82,9 +82,12 @@ public class UserController extends HttpServlet {
             String role = "member";
 
             if (dao.checkUserExists(username)) {
-
-                RequestDispatcher rs = request.getRequestDispatcher("registerError1.html");
-                rs.forward(request, response);
+                writer.print("<script type=\"text/javascript\">");
+                writer.print("alert('User already exists');");
+                writer.print("</script>");
+//                RequestDispatcher rs = request.getRequestDispatcher("index.html");
+//                rs.forward(request, response);
+                request.getRequestDispatcher("index.html").include(request, response);
             } else {
                 String fileName = null;
                 String photo = "";
@@ -101,7 +104,6 @@ public class UserController extends HttpServlet {
                 OutputStream out = null;
                 InputStream filecontent = null;
 
-                PrintWriter writer = response.getWriter();
                 try {
 
                     out = new FileOutputStream(new File(path + File.separator + fileName));

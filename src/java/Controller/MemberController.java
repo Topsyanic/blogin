@@ -144,7 +144,7 @@ public class MemberController extends HttpServlet {
             dao.updateProfilePic(username, photo);
             writer.print("<script type=\"text/javascript\">");
             writer.print("alert('Profile Picture successfully changed.');");
-            writer.print("location='MemberController';");
+            writer.print("location='HomeRedirect';");
             writer.print("</script>");
         } catch (SQLException ex) {
             Logger.getLogger(MemberController.class.getName()).log(Level.SEVERE, null, ex);
